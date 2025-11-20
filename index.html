@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FluentFlow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      /* Pulse animation for the avatar when talking */
+      @keyframes talking-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); transform: scale(1); }
+        50% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); transform: scale(1.02); }
+        100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); transform: scale(1); }
+      }
+      .talking {
+        animation: talking-pulse 1.5s infinite;
+      }
+      /* Waveform animation for user speaking */
+      @keyframes wave {
+        0%, 100% { height: 10px; }
+        50% { height: 30px; }
+      }
+      .wave-bar {
+        animation: wave 1s ease-in-out infinite;
+      }
+      .wave-bar:nth-child(odd) { animation-duration: 0.8s; }
+      .wave-bar:nth-child(even) { animation-duration: 1.2s; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-900 text-white h-screen overflow-hidden">
+    <div id="root" class="h-full w-full"></div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "Copy of FluentFlow: Speak & Master",
+  "description": "A gamified, video-call style English speaking practice app. Features level assessment, daily scenario roleplays, and AI-driven pronunciation and grammar feedback.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
