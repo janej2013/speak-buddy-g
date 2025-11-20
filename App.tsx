@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Mic, MicOff, Volume2, Play, Star, CheckCircle, RefreshCcw, XCircle, Loader2, HelpCircle, Send, RotateCcw, BookOpen, Bug, GraduationCap, ArrowLeft, Settings } from 'lucide-react';
+import { Mic, MicOff, Volume2, Play, Star, CheckCircle, RefreshCcw, XCircle, Loader2, HelpCircle, Send, RotateCcw, BookOpen, Bug, GraduationCap, ArrowLeft, Settings, Sparkles } from 'lucide-react';
 import { AppMode, SpeakingState, Message, DailyTopic, Feedback, IWindow } from './types';
 import * as GeminiService from './services/gemini';
 
@@ -522,22 +522,30 @@ export default function App() {
         {/* Feedback Overlay */}
         {lastFeedback && mode === AppMode.PRACTICE && !transcript && (
           <div className="absolute bottom-32 left-0 w-full flex justify-center z-20 px-4 pointer-events-none">
-             <div className="bg-white text-gray-900 p-4 rounded-xl shadow-2xl max-w-lg w-full animate-fade-in-up border-l-8 pointer-events-auto flex flex-col gap-2" style={{ borderColor: lastFeedback.isGood ? '#22c55e' : '#eab308' }}>
-                <div className="flex justify-between items-start">
-                  <h3 className="font-bold flex items-center gap-2">
-                     {lastFeedback.isGood ? <CheckCircle className="text-green-600" size={18} /> : <RefreshCcw className="text-yellow-600" size={18} />}
-                     {lastFeedback.isGood ? "Good Job!" : "Suggestion"}
+             <div className="bg-white text-gray-900 p-5 rounded-xl shadow-2xl max-w-lg w-full animate-fade-in-up border-l-8 pointer-events-auto flex flex-col gap-3" style={{ borderColor: lastFeedback.isGood ? '#22c55e' : '#eab308' }}>
+                <div className="flex justify-between items-start border-b border-gray-100 pb-2">
+                  <h3 className="font-bold flex items-center gap-2 text-lg">
+                     {lastFeedback.isGood ? <Sparkles className="text-green-600 fill-green-100" size={20} /> : <RefreshCcw className="text-yellow-600" size={20} />}
+                     <span className={lastFeedback.isGood ? "text-green-700" : "text-yellow-700"}>
+                        {lastFeedback.isGood ? "Polished Expression" : "Suggestion"}
+                     </span>
                   </h3>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} className={i < (lastFeedback.score || 0) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"} />
+                      <Star key={i} size={16} className={i < (lastFeedback.score || 0) ? "text-yellow-400 fill-yellow-400" : "text-gray-200"} />
                     ))}
                   </div>
                 </div>
-                <p className="text-sm text-gray-700 font-medium">"{lastFeedback.advice}"</p>
+                
+                <div className="flex flex-col gap-1">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">The Tip</span>
+                    <p className="text-gray-800 font-medium leading-snug">{lastFeedback.advice}</p>
+                </div>
+
                 {lastFeedback.correction && (
-                  <div className="bg-gray-100 p-2 rounded text-xs font-mono text-gray-600">
-                    Try: "{lastFeedback.correction}"
+                  <div className="bg-blue-50 border border-blue-100 p-3 rounded-lg mt-1">
+                     <div className="text-xs font-bold text-blue-400 uppercase tracking-wide mb-1">Better Way</div>
+                     <div className="text-blue-900 font-medium">"{lastFeedback.correction}"</div>
                   </div>
                 )}
              </div>

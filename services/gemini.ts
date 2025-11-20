@@ -203,22 +203,29 @@ export const evaluateTurn = async (
   }
 
   const prompt = `
-    Context: English Roleplay. Scenario: ${topic.scenario}
-    User Level: ${userLevel}
-    Last User Message: "${lastUserMessage}"
+    You are an expert English dialect coach acting as a roleplay partner.
+    Scenario: ${topic.scenario}
+    User Target Level: ${userLevel}
+    User's Last Input: "${lastUserMessage}"
 
-    Task:
-    1. Evaluate message validity (true/false).
-    2. Give ONE bullet point advice (grammar/vocab/naturalness) - Keep it VERY short.
-    3. Generate next response as roleplay partner (Match level ${userLevel}).
+    YOUR DUAL TASK:
+    1. CONTINUE THE ROLEPLAY: Generate a natural response as your character.
+    2. PROVIDE COACHING FEEDBACK: Analyze the User's Input for ONE specific improvement.
 
+    CRITICAL RULES FOR FEEDBACK (DO NOT IGNORE):
+    - ABSOLUTELY NO GENERIC ADVICE (e.g., "Speak clearly", "Practice more", "Be confident").
+    - FOCUS on ONE tangible improvement: Grammar, Vocabulary choice, or Natural Phrasing.
+    - IF GRAMMAR ERROR: Pinpoint it. (e.g., "Use 'went' for past tense, not 'go'.")
+    - IF PHRASING IS OK BUT WEAK: Suggest a native idiom/collocation. (e.g., "Say 'I'm exhausted' instead of 'very tired'.")
+    - IF PERFECT: Suggest a sophisticated alternative suitable for C1 level.
+    
     Output JSON:
     {
-      "isGood": boolean,
-      "correction": "optional correction string",
-      "advice": "short advice string",
+      "isGood": boolean, 
+      "correction": "The specific improved version of the user's phrase",
+      "advice": "The specific rule or reason (Max 15 words)",
       "score": number (1-5),
-      "nextResponse": "string"
+      "nextResponse": "Your roleplay response"
     }
   `;
 
@@ -250,7 +257,7 @@ export const evaluateTurn = async (
       feedback: {
         isGood: json.isGood,
         correction: json.correction,
-        advice: json.advice || "Try to speak more clearly.",
+        advice: json.advice || "Review your sentence structure.",
         score: json.score
       },
       nextResponse: json.nextResponse || "I see. Please continue.",
